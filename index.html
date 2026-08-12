@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Asiya Arab — AI/ML Engineer Intern</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #F6F7FB;
-    --bg-card: #FFFFFF;
-    --ink: #13141F;
-    --ink-soft: #585B75;
-    --ink-faint: #9497B0;
-    --accent: #4F3DF5;
-    --accent-deep: #382AC4;
-    --accent-2: #FF5A36;
-    --accent-tint: #ECE9FF;
-    --accent-2-tint: #FFEBE3;
-    --line: #E2E3EF;
-    --success: #17974C;
+    --bg: #FFFFFF;
+    --bg-card: #F4F7FB;
+    --ink: #0B1F3A;
+    --ink-soft: #435875;
+    --ink-faint: #8C9AB3;
+    --accent: #14315C;
+    --accent-deep: #081B33;
+    --accent-2: #2C5490;
+    --accent-tint: #E6ECF6;
+    --accent-2-tint: #EEF2F8;
+    --line: #DDE4EF;
+    --success: #14315C;
     --radius: 18px;
     --maxw: 1180px;
   }
@@ -49,6 +49,35 @@
     *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
   }
 
+  /* ---------- intro splash ---------- */
+  #splash{
+    position:fixed; inset:0; z-index:999; background:var(--ink);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:22px;
+    transition:opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #splash.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  .splash-avatar{
+    width:96px; height:96px; border-radius:50%;
+    background:linear-gradient(135deg, var(--accent-2), #14315C);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk'; font-weight:700; font-size:2.1rem; color:#fff;
+    box-shadow:0 0 0 8px rgba(255,255,255,0.06);
+    animation:splashPop 0.7s cubic-bezier(.2,.9,.3,1.3) both;
+  }
+  .splash-name{
+    font-family:'Space Grotesk'; font-weight:700; color:#fff; font-size:1.6rem;
+    letter-spacing:0.01em; opacity:0; animation:splashFade 0.6s ease 0.35s forwards;
+  }
+  .splash-role{
+    font-family:'JetBrains Mono'; font-size:0.8rem; color:#7C93B5; letter-spacing:0.04em;
+    text-transform:uppercase; opacity:0; animation:splashFade 0.6s ease 0.55s forwards;
+  }
+  @keyframes splashPop{ from{ transform:scale(0.6); opacity:0;} to{ transform:scale(1); opacity:1;} }
+  @keyframes splashFade{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){
+    #splash{ transition:none; }
+  }
+
   /* ---------- background texture ---------- */
   .grain{
     position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.35;
@@ -64,7 +93,7 @@
     background:rgba(246,247,251,0.82);
     border-bottom:1px solid var(--line);
   }
-  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:76px; }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:76px; gap:14px; }
   .brand{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk'; font-weight:700; font-size:1.05rem; }
   .brand .dot{ width:9px; height:9px; border-radius:50%; background:var(--accent-2); box-shadow:0 0 0 4px var(--accent-2-tint); }
   .navlinks{ display:flex; gap:36px; font-size:0.92rem; font-weight:500; color:var(--ink-soft); }
@@ -81,6 +110,32 @@
   }
   .nav-cta:hover{ background:var(--accent-deep); }
 
+  .nav-right{ display:flex; align-items:center; gap:10px; }
+
+  .hamburger{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:38px; height:38px; background:none; border:none; cursor:pointer; padding:0;
+  }
+  .hamburger span{
+    display:block; width:22px; height:2px; background:var(--ink); border-radius:2px;
+    transition:transform 0.25s ease, opacity 0.25s ease;
+  }
+  .hamburger[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .hamburger[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+  .hamburger[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu{
+    display:none; flex-direction:column; gap:2px; padding:10px 32px 22px;
+    max-height:0; overflow:hidden; transition:max-height 0.3s ease;
+  }
+  .mobile-menu.open{ max-height:320px; }
+  .mobile-menu a{
+    padding:13px 4px; font-size:0.98rem; font-weight:500; color:var(--ink-soft);
+    border-top:1px solid var(--line);
+  }
+  .mobile-menu a:hover{ color:var(--ink); }
+  .mobile-menu a.mobile-cta{ color:var(--accent-deep); font-weight:700; }
+
   /* ---------- hero ---------- */
   .hero{ padding:88px 0 60px; position:relative; z-index:2; }
   .hero .wrap{ display:grid; grid-template-columns: 1.05fr 0.95fr; gap:56px; align-items:center; }
@@ -94,10 +149,11 @@
   @keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1);} 50%{ opacity:0.4; transform:scale(1.4);} }
 
   .hero h1{
-    font-size:clamp(2.5rem, 4.4vw, 3.6rem); font-weight:500; line-height:1.12; color:var(--ink);
+    font-family:'Source Serif 4', serif;
+    font-size:clamp(2.5rem, 4.4vw, 3.6rem); font-weight:600; line-height:1.1; color:var(--ink); letter-spacing:-0.005em;
   }
-  .hero h1 .hl{ color:#8377F8; position:relative; white-space:nowrap; }
-  .hero h1 .hl2{ color:#FF8F72; }
+  .hero h1 .hl{ color:#1D3E6B; position:relative; white-space:nowrap; }
+  .hero h1 .hl2{ color:#3A6EA8; }
   .hero p.lede{
     margin-top:22px; font-size:1.13rem; color:var(--ink-soft); max-width:520px;
   }
@@ -140,7 +196,7 @@
     display:flex; align-items:center; gap:8px; animation:float 5s ease-in-out infinite;
   }
   .float-badge.b1{ top:-18px; right:-14px; animation-delay:0.2s; }
-  .float-badge.b2{ bottom:8px; left:-30px; animation-delay:1.4s; }
+  .float-badge.b2{ bottom:-22px; left:-14px; animation-delay:1.4s; }
   .float-badge .ic{ width:8px; height:8px; border-radius:2px; background:var(--accent-2); }
   @keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-9px);} }
 
@@ -186,7 +242,7 @@
   .status-pill{
     font-family:'JetBrains Mono'; font-size:0.7rem; padding:4px 10px; border-radius:100px; font-weight:500;
   }
-  .status-pill.live{ background:#E6F7ED; color:var(--success); }
+  .status-pill.live{ background:#E6ECF6; color:var(--success); }
   .status-pill.done{ background:var(--accent-tint); color:var(--accent-deep); }
 
   /* ---------- projects ---------- */
@@ -222,10 +278,10 @@
     content:''; position:absolute; width:320px; height:320px; border-radius:50%;
     background:radial-gradient(circle, rgba(255,90,54,0.22), transparent 70%); bottom:-140px; left:-100px;
   }
-  .skills-panel .sec-eyebrow{ color:#B7B2FF; }
+  .skills-panel .sec-eyebrow{ color:#A9C2E6; }
   .skills-panel h2{ color:#fff; position:relative; z-index:2; }
   .skill-cats{ display:grid; grid-template-columns:repeat(3,1fr); gap:36px; margin-top:44px; position:relative; z-index:2; }
-  .skill-cat h4{ font-size:0.78rem; font-family:'JetBrains Mono'; color:#8E90B5; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:16px; font-weight:500; }
+  .skill-cat h4{ font-size:0.78rem; font-family:'JetBrains Mono'; color:#7C93B5; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:16px; font-weight:500; }
   .skill-list{ display:flex; flex-wrap:wrap; gap:9px; }
   .skill-list span{
     font-size:0.85rem; padding:8px 14px; border-radius:100px; background:rgba(255,255,255,0.07);
@@ -248,7 +304,7 @@
   .contact-card p{ color:rgba(255,255,255,0.82); margin-top:16px; font-size:1.05rem; }
   .contact-actions{ display:flex; justify-content:center; gap:14px; margin-top:34px; flex-wrap:wrap; }
   .contact-card .btn-primary{ background:#fff; color:var(--accent-deep); }
-  .contact-card .btn-primary:hover{ background:#F1F0FF; box-shadow:0 10px 24px -8px rgba(0,0,0,0.25); }
+  .contact-card .btn-primary:hover{ background:#EAF0F8; box-shadow:0 10px 24px -8px rgba(0,0,0,0.25); }
   .contact-card .btn-ghost{ border-color:rgba(255,255,255,0.4); color:#fff; background:transparent; }
   .contact-card .btn-ghost:hover{ border-color:#fff; }
 
@@ -265,8 +321,8 @@
   .contact-form input:focus,
   .contact-form textarea:focus{ outline:none; border-color:#fff; background:rgba(255,255,255,0.18); }
   .form-status{ margin-top:12px; font-size:0.85rem; min-height:20px; }
-  .form-status.ok{ color:#D6FFE4; }
-  .form-status.err{ color:#FFD9CE; }
+  .form-status.ok{ color:#DCE8F5; }
+  .form-status.err{ color:#D9E3F0; }
   @media (max-width:560px){ .contact-form .form-row{ flex-direction:column; gap:0; } }
 
   footer{ padding:44px 0 60px; }
@@ -280,6 +336,10 @@
 
   @media (max-width: 900px){
     .navlinks{ display:none; }
+    .hamburger{ display:flex; }
+    .mobile-menu{ display:flex; }
+    .nav-cta{ padding:8px 14px; font-size:0.76rem; font-weight:700; letter-spacing:0.02em; text-transform:uppercase; margin-right:0; }
+    .nav-right{ gap:8px; }
     .hero .wrap{ grid-template-columns:1fr; }
     .about-grid{ grid-template-columns:1fr; }
     .proj-grid{ grid-template-columns:1fr; }
@@ -296,6 +356,12 @@
 </head>
 <body>
 
+<div id="splash">
+  <div class="splash-avatar">AA</div>
+  <div class="splash-name">Asiya Arab</div>
+  <div class="splash-role">AI / ML Engineer Intern</div>
+</div>
+
 <div class="grain"></div>
 
 <nav>
@@ -307,7 +373,18 @@
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
     </div>
-    <a class="nav-cta" href="#contact">Get in touch</a>
+    <div class="nav-right">
+      <a class="nav-cta" href="#contact">Get in touch</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
   </div>
 </nav>
 
@@ -338,8 +415,8 @@
       <svg viewBox="0 0 320 300" width="100%" height="240">
         <defs>
           <linearGradient id="radarGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#4F3DF5"/>
-            <stop offset="100%" stop-color="#FF5A36"/>
+            <stop offset="0%" stop-color="#14315C"/>
+            <stop offset="100%" stop-color="#2C5490"/>
           </linearGradient>
         </defs>
         <!-- rings -->
@@ -456,16 +533,16 @@
       <div class="proj-card reveal">
         <div class="proj-visual">
           <svg width="220" height="120" viewBox="0 0 220 120">
-            <polyline points="10,90 45,60 80,75 115,30 150,45 185,15" fill="none" stroke="#4F3DF5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="185" cy="15" r="5" fill="#FF5A36"/>
-            <circle cx="115" cy="30" r="4" fill="#4F3DF5"/>
-            <text x="10" y="112" font-family="JetBrains Mono" font-size="10" fill="#585B75">CONTENT · SCHEMA · ENTITY</text>
+            <polyline points="10,90 45,60 80,75 115,30 150,45 185,15" fill="none" stroke="#14315C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="185" cy="15" r="5" fill="#2C5490"/>
+            <circle cx="115" cy="30" r="4" fill="#14315C"/>
+            <text x="10" y="112" font-family="JetBrains Mono" font-size="9" fill="#435875">CONTENT · SCHEMA · CONVERSATIONAL · ENTITY</text>
           </svg>
         </div>
         <div class="proj-top">
           <div><div class="proj-name">AEO Agent</div><div class="proj-tag">ANSWER ENGINE OPTIMIZATION</div></div>
         </div>
-        <p class="proj-desc">Scores websites across four dimensions to measure visibility in ChatGPT, Gemini, and Google AI Overview, with automated competitor benchmarking and a 30-day action plan generator.</p>
+        <p class="proj-desc">Scores websites across four dimensions — content, schema, conversational readiness, entity clarity — with separate visibility scores for ChatGPT, Gemini, and Google AI Overview. Benchmarks up to 4+ competitors side by side with their strengths/weaknesses, generates trending FAQ suggestions, a prioritized 30-day action plan, and tracks analysis history over time.</p>
         <div class="proj-stack">
           <span class="chip">Python</span><span class="chip">NLP</span><span class="chip">Prompt Eng.</span><span class="chip">Streamlit</span>
         </div>
@@ -475,21 +552,21 @@
       <div class="proj-card reveal">
         <div class="proj-visual">
           <svg width="220" height="120" viewBox="0 0 220 120">
-            <circle cx="110" cy="60" r="14" fill="#FF5A36"/>
-            <circle cx="45" cy="30" r="9" fill="#fff" stroke="#FF5A36" stroke-width="2"/>
-            <circle cx="45" cy="90" r="9" fill="#fff" stroke="#FF5A36" stroke-width="2"/>
-            <circle cx="175" cy="30" r="9" fill="#fff" stroke="#FF5A36" stroke-width="2"/>
-            <circle cx="175" cy="90" r="9" fill="#fff" stroke="#FF5A36" stroke-width="2"/>
-            <line x1="110" y1="60" x2="45" y2="30" stroke="#FF5A36" stroke-width="1.5" opacity="0.5"/>
-            <line x1="110" y1="60" x2="45" y2="90" stroke="#FF5A36" stroke-width="1.5" opacity="0.5"/>
-            <line x1="110" y1="60" x2="175" y2="30" stroke="#FF5A36" stroke-width="1.5" opacity="0.5"/>
-            <line x1="110" y1="60" x2="175" y2="90" stroke="#FF5A36" stroke-width="1.5" opacity="0.5"/>
+            <circle cx="110" cy="60" r="14" fill="#2C5490"/>
+            <circle cx="45" cy="30" r="9" fill="#fff" stroke="#2C5490" stroke-width="2"/>
+            <circle cx="45" cy="90" r="9" fill="#fff" stroke="#2C5490" stroke-width="2"/>
+            <circle cx="175" cy="30" r="9" fill="#fff" stroke="#2C5490" stroke-width="2"/>
+            <circle cx="175" cy="90" r="9" fill="#fff" stroke="#2C5490" stroke-width="2"/>
+            <line x1="110" y1="60" x2="45" y2="30" stroke="#2C5490" stroke-width="1.5" opacity="0.5"/>
+            <line x1="110" y1="60" x2="45" y2="90" stroke="#2C5490" stroke-width="1.5" opacity="0.5"/>
+            <line x1="110" y1="60" x2="175" y2="30" stroke="#2C5490" stroke-width="1.5" opacity="0.5"/>
+            <line x1="110" y1="60" x2="175" y2="90" stroke="#2C5490" stroke-width="1.5" opacity="0.5"/>
           </svg>
         </div>
         <div class="proj-top">
           <div><div class="proj-name">RankPilot</div><div class="proj-tag">MULTI-AGENT SEO DASHBOARD · IN DEV</div></div>
         </div>
-        <p class="proj-desc">A FastAPI-based SEO analysis dashboard coordinated by 10 AI agents, handling automated site analysis and reporting from backend architecture through to actionable output.</p>
+        <p class="proj-desc">A FastAPI-based SEO dashboard coordinated by 10 named AI agents (SEO Strategist, Keyword Researcher, Content Optimizer, Technical SEO, AEO/GEO Specialists, Link Building, Analytics, Competitive Intel, Content Auditor). Fetches live page data, tracks AI platform citations and keyword clusters, and surfaces strategic insights — still being refined for accuracy as it's actively in development.</p>
         <div class="proj-stack">
           <span class="chip">FastAPI</span><span class="chip">Multi-Agent</span><span class="chip">Python</span>
         </div>
@@ -499,17 +576,17 @@
       <div class="proj-card reveal">
         <div class="proj-visual">
           <svg width="220" height="120" viewBox="0 0 220 120">
-            <rect x="20" y="70" width="20" height="30" fill="#4F3DF5"/>
-            <rect x="55" y="50" width="20" height="50" fill="#4F3DF5"/>
-            <rect x="90" y="60" width="20" height="40" fill="#4F3DF5"/>
-            <rect x="125" y="35" width="20" height="65" fill="#4F3DF5"/>
-            <rect x="160" y="20" width="20" height="80" fill="#FF5A36"/>
+            <rect x="20" y="70" width="20" height="30" fill="#14315C"/>
+            <rect x="55" y="50" width="20" height="50" fill="#14315C"/>
+            <rect x="90" y="60" width="20" height="40" fill="#14315C"/>
+            <rect x="125" y="35" width="20" height="65" fill="#14315C"/>
+            <rect x="160" y="20" width="20" height="80" fill="#2C5490"/>
           </svg>
         </div>
         <div class="proj-top">
           <div><div class="proj-name">ForecastX</div><div class="proj-tag">SALES FORECASTING SYSTEM</div></div>
         </div>
-        <p class="proj-desc">Gradient Boosting model predicting weekly sales for 45 retail locations, integrating historical data and macroeconomic CPI factors into an interactive Streamlit dashboard.</p>
+        <p class="proj-desc">Role-based dashboard (Store Manager / Admin) forecasting weekly sales across 45 Indian retail locations with a Gradient Boosting model. Generates on-demand forecasts per store and department, compares regular vs. holiday-week sales, visualizes historical trends, and breaks down model decision factors (size, seasonality, CPI, fuel price) by feature importance — with CSV export.</p>
         <div class="proj-stack">
           <span class="chip">Scikit-learn</span><span class="chip">GBM</span><span class="chip">Streamlit</span>
         </div>
@@ -519,10 +596,10 @@
       <div class="proj-card reveal">
         <div class="proj-visual">
           <svg width="220" height="120" viewBox="0 0 220 120">
-            <path d="M20,60 A90,90 0 0 1 200,60" fill="none" stroke="#E2E3EF" stroke-width="14" stroke-linecap="round"/>
-            <path d="M20,60 A90,90 0 0 1 150,20" fill="none" stroke="#FF5A36" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="150" cy="20" r="7" fill="#13141F"/>
-            <text x="110" y="65" font-family="Space Grotesk" font-weight="700" font-size="18" fill="#13141F" text-anchor="middle">72% pos</text>
+            <path d="M20,60 A90,90 0 0 1 200,60" fill="none" stroke="#DDE4EF" stroke-width="14" stroke-linecap="round"/>
+            <path d="M20,60 A90,90 0 0 1 150,20" fill="none" stroke="#2C5490" stroke-width="14" stroke-linecap="round"/>
+            <circle cx="150" cy="20" r="7" fill="#0B1F3A"/>
+            <text x="110" y="65" font-family="Space Grotesk" font-weight="700" font-size="18" fill="#0B1F3A" text-anchor="middle">72% pos</text>
           </svg>
         </div>
         <div class="proj-top">
@@ -600,10 +677,29 @@
 </footer>
 
 <script>
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      document.getElementById('splash').classList.add('hide');
+    }, 1300);
+  });
+
   const obs = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el=> obs.observe(el));
+
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburgerBtn.addEventListener('click', ()=>{
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburgerBtn.setAttribute('aria-expanded', isOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click', ()=>{
+      mobileMenu.classList.remove('open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
 
   const form = document.getElementById('contactForm');
   const status = document.getElementById('formStatus');
