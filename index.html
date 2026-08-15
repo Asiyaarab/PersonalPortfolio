@@ -438,7 +438,7 @@
       </div>
       <div class="meta-row">
         <span class="meta-item"><b>Ahmedabad, India</b> · Remote only</span>
-        <span class="meta-item"><b>4</b> shipped ML/NLP products</span>
+        <span class="meta-item"><b>7</b> shipped ML/NLP products</span>
         <span class="meta-item"><b>BCA</b> · Shreyarth University, 2026</span>
       </div>
     </div>
@@ -495,7 +495,7 @@
       <div class="about-text reveal">
         <span class="sec-eyebrow">01 / About</span>
         <h2 style="margin-bottom:22px;">Hands-on with AI products, from data to deployment.</h2>
-        <p>I'm an <strong>AI/ML Engineer Intern</strong> currently at <strong>Webify.ai</strong>, where I shipped <strong>AEO Agent</strong> — a tool that scores how visible a website is inside ChatGPT, Gemini, and Google AI Overviews — and I'm now building <strong>RankPilot</strong>, a FastAPI dashboard coordinated by 10 AI agents.</p>
+        <p>I'm an <strong>AI/ML Engineer Intern</strong> currently at <strong>Webify.ai</strong>, where I shipped <strong>AEO Agent</strong> — a tool that scores how visible a website is inside ChatGPT, Gemini, and Google AI Overviews — along with <strong>RecruitIQ</strong>, <strong>RAG Assistant</strong>, and a VS Code extension-listing automation pipeline, and I'm now building <strong>RankPilot</strong>, a FastAPI dashboard coordinated by 10 AI agents.</p>
         <p>My work spans <strong>supervised learning, NLP, and multi-agent systems</strong>: from a Gradient Boosting model forecasting sales across 45 retail locations, to a sentiment classifier trained on 50,000+ movie reviews. I care about taking a model from a notebook to something a real user can act on.</p>
       </div>
       <div class="stat-grid reveal">
@@ -541,6 +541,9 @@
           <li>Delivered AEO Agent, scoring website visibility across ChatGPT, Gemini, and Google AI Overviews</li>
           <li>Built a multi-factor scoring engine covering content quality, schema, conversational readiness, and entity clarity</li>
           <li>Implemented competitor intelligence that benchmarks target sites and surfaces prioritized recommendations</li>
+          <li>Built RecruitIQ, an AI resume screening agent that parses, scores, and ranks candidates with AI-generated interview questions</li>
+          <li>Built RAG Assistant, a LangChain-powered retrieval-augmented chatbot with ChromaDB vector search over 200+ essays</li>
+          <li>Built an automation pipeline that discovers popular VS Code extensions, scrapes their listings with Playwright, and generates improved marketplace copy via Groq/Gemini — automated weekly with GitHub Actions</li>
           <li>Currently building RankPilot, a FastAPI dashboard coordinating 10 AI agents for SEO analysis</li>
         </ul>
       </div>
@@ -564,7 +567,7 @@
     <div class="sec-head reveal">
       <span class="sec-eyebrow">03 / Projects</span>
       <h2>Things I've shipped.</h2>
-      <p>Four end-to-end AI products — from answer-engine visibility scoring to sentiment classification on 50K+ reviews.</p>
+      <p>Seven end-to-end AI products — from answer-engine visibility scoring to retrieval-augmented Q&A grounded in 200+ essays.</p>
     </div>
     <div class="proj-grid">
 
@@ -650,6 +653,80 @@
         <a class="proj-link" href="https://github.com/Asiyaarab/SentiSense" target="_blank" rel="noopener">View on GitHub <span class="arrow">→</span></a>
       </div>
 
+      <div class="proj-card reveal">
+        <div class="proj-visual">
+          <svg width="220" height="120" viewBox="0 0 220 120">
+            <rect x="20" y="24" width="150" height="10" rx="5" fill="#14315C"/>
+            <rect x="20" y="46" width="118" height="10" rx="5" fill="#2C5490"/>
+            <rect x="20" y="68" width="86" height="10" rx="5" fill="#2C5490" opacity="0.65"/>
+            <rect x="20" y="90" width="54" height="10" rx="5" fill="#2C5490" opacity="0.4"/>
+            <line x1="150" y1="14" x2="150" y2="106" stroke="#0B1F3A" stroke-width="1.5" stroke-dasharray="3,3"/>
+            <text x="152" y="12" font-family="JetBrains Mono" font-size="7.5" fill="#435875">HIRE ≥70</text>
+          </svg>
+        </div>
+        <div class="proj-top">
+          <div><div class="proj-name">RecruitIQ</div><div class="proj-tag">AI RESUME SCREENING AGENT</div></div>
+        </div>
+        <p class="proj-desc">Parses multiple resumes and job descriptions, extracts and matches skills, then ranks candidates by score with a Hire / Second Round / Reject recommendation (≥70 / 50–69 / &lt;50). Generates AI interview questions for the top-ranked candidate via Groq, with Gemini and a static question bank as fallbacks, plus per-candidate scorecards and CSV/Excel/PDF report exports.</p>
+        <div class="proj-stack">
+          <span class="chip">Python</span><span class="chip">Streamlit</span><span class="chip">Groq API</span><span class="chip">PyMuPDF</span>
+        </div>
+        <a class="proj-link" href="https://github.com/Asiyaarab/RecruitIQ" target="_blank" rel="noopener">View on GitHub <span class="arrow">→</span></a>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-visual">
+          <svg width="220" height="120" viewBox="0 0 220 120">
+            <rect x="18" y="18" width="18" height="18" rx="3" fill="#2C5490" opacity="0.55"/>
+            <rect x="52" y="18" width="18" height="18" rx="3" fill="#2C5490" opacity="0.75"/>
+            <rect x="86" y="18" width="18" height="18" rx="3" fill="#14315C"/>
+            <rect x="120" y="18" width="18" height="18" rx="3" fill="#2C5490" opacity="0.75"/>
+            <rect x="154" y="18" width="18" height="18" rx="3" fill="#2C5490" opacity="0.55"/>
+            <line x1="27" y1="36" x2="105" y2="78" stroke="#2C5490" stroke-width="1.5" opacity="0.5"/>
+            <line x1="61" y1="36" x2="105" y2="78" stroke="#2C5490" stroke-width="1.5" opacity="0.5"/>
+            <line x1="95" y1="36" x2="105" y2="78" stroke="#14315C" stroke-width="1.5"/>
+            <line x1="129" y1="36" x2="105" y2="78" stroke="#2C5490" stroke-width="1.5" opacity="0.5"/>
+            <line x1="163" y1="36" x2="105" y2="78" stroke="#2C5490" stroke-width="1.5" opacity="0.5"/>
+            <circle cx="105" cy="86" r="12" fill="#0B1F3A"/>
+            <text x="105" y="106" font-family="JetBrains Mono" font-size="7.5" fill="#435875" text-anchor="middle">TOP-5 CHUNKS → ANSWER</text>
+          </svg>
+        </div>
+        <div class="proj-top">
+          <div><div class="proj-name">RAG Assistant</div><div class="proj-tag">RETRIEVAL-AUGMENTED GENERATION</div></div>
+        </div>
+        <p class="proj-desc">A LangChain-based RAG chatbot that answers questions grounded entirely in Paul Graham's ~200 published essays, with inline source citations. Chunks essays (~1500 chars, 200-char overlap), embeds them locally with all-MiniLM-L6-v2 (no per-query embedding cost), and retrieves the top-5 relevant chunks from a persistent ChromaDB store before generating an answer with a switchable Claude or Groq backend.</p>
+        <div class="proj-stack">
+          <span class="chip">LangChain</span><span class="chip">ChromaDB</span><span class="chip">Claude / Groq API</span>
+        </div>
+        <a class="proj-link" href="https://github.com/Asiyaarab/RAG_Assistant" target="_blank" rel="noopener">View on GitHub <span class="arrow">→</span></a>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-visual">
+          <svg width="220" height="120" viewBox="0 0 220 120">
+            <rect x="20" y="30" width="70" height="60" rx="6" fill="none" stroke="#DDE4EF" stroke-width="3"/>
+            <rect x="30" y="42" width="50" height="6" rx="3" fill="#2C5490" opacity="0.4"/>
+            <rect x="30" y="54" width="35" height="6" rx="3" fill="#2C5490" opacity="0.4"/>
+            <rect x="30" y="66" width="45" height="6" rx="3" fill="#2C5490" opacity="0.4"/>
+            <path d="M100,60 L134,60" stroke="#14315C" stroke-width="3" stroke-linecap="round"/>
+            <path d="M125,52 L135,60 L125,68" fill="none" stroke="#14315C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="150" y="20" width="55" height="70" rx="6" fill="#14315C"/>
+            <rect x="160" y="32" width="35" height="6" rx="3" fill="#fff" opacity="0.85"/>
+            <rect x="160" y="44" width="35" height="6" rx="3" fill="#fff" opacity="0.6"/>
+            <circle cx="195" cy="75" r="9" fill="#2C5490"/>
+            <path d="M191,75 l3,3 l6,-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="proj-top">
+          <div><div class="proj-name">VS Code Listing Agent</div><div class="proj-tag">AUTOMATED MARKETPLACE LISTING PIPELINE</div></div>
+        </div>
+        <p class="proj-desc">An automation pipeline that discovers currently popular VS Code extensions from live Marketplace install-count data — not a fixed list — scrapes each one's real listing with Playwright, and generates an improved description, category, and keywords through switchable Groq/Gemini backends. Validates every draft against real Marketplace constraints with automatic trimming, and ships with an interactive dashboard where clicking "Run pipeline" triggers a live discover → scrape → generate → validate run, plus weekly GitHub Actions automation and a unit test suite.</p>
+        <div class="proj-stack">
+          <span class="chip">Node.js</span><span class="chip">Playwright</span><span class="chip">Groq / Gemini API</span><span class="chip">GitHub Actions</span>
+        </div>
+        <a class="proj-link" href="https://github.com/Asiyaarab/ExtensionListing" target="_blank" rel="noopener">View on GitHub <span class="arrow">→</span></a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -663,19 +740,19 @@
         <div class="skill-cat">
           <h4>Machine Learning & AI</h4>
           <div class="skill-list">
-            <span>Supervised Learning</span><span>Gradient Boosting</span><span>NLP</span><span>Prompt Engineering</span><span>LLM Evaluation</span><span>Multi-Agent Systems</span>
+            <span>Supervised Learning</span><span>Gradient Boosting</span><span>NLP</span><span>Prompt Engineering</span><span>LLM Evaluation</span><span>Multi-Agent Systems</span><span>RAG / Vector Search</span>
           </div>
         </div>
         <div class="skill-cat">
           <h4>Tools & Frameworks</h4>
           <div class="skill-list">
-            <span>Python</span><span>FastAPI</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Streamlit</span><span>Jupyter</span><span>Git</span>
+            <span>Python</span><span>FastAPI</span><span>LangChain</span><span>ChromaDB</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Streamlit</span><span>Jupyter</span><span>Git</span><span>Node.js</span><span>Playwright</span><span>GitHub Actions</span>
           </div>
         </div>
         <div class="skill-cat">
           <h4>Other</h4>
           <div class="skill-list">
-            <span>Data Viz</span><span>Feature Engineering</span><span>HTML5 / CSS3</span><span>MySQL</span><span>WordPress</span>
+            <span>Data Preprocessing</span><span>Data Visualization</span><span>Feature Engineering</span><span>Groq API</span><span>Claude API</span><span>HTML5 / CSS3</span><span>MySQL</span><span>WordPress</span>
           </div>
         </div>
       </div>
