@@ -365,6 +365,46 @@
   .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
   .reveal.in{ opacity:1; transform:translateY(0); }
 
+  /* ---------- motion: cascading children ---------- */
+  .stat-grid .stat-box, .timeline .tl-item, .skills-panel .skill-list span{
+    opacity:0; transform:translateY(14px); transition:opacity 0.55s ease, transform 0.55s ease;
+  }
+  .stat-grid.in .stat-box, .timeline.in .tl-item, .skills-panel.in .skill-list span{
+    opacity:1; transform:translateY(0);
+  }
+  .stat-box .num{ font-variant-numeric:tabular-nums; }
+
+  /* ---------- motion: active-section nav indicator ---------- */
+  .navlinks{ position:relative; }
+  .nav-indicator{
+    position:absolute; bottom:-4px; height:2px; background:var(--accent); border-radius:2px;
+    opacity:0; transition:left 0.35s cubic-bezier(.4,0,.2,1), width 0.35s cubic-bezier(.4,0,.2,1), opacity 0.25s ease;
+  }
+  .nav-indicator.on{ opacity:1; }
+
+  /* ---------- motion: project card spotlight + tilt ---------- */
+  .proj-card{
+    position:relative; overflow:hidden;
+    transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  }
+  .proj-card:hover{ transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-6px); }
+  .proj-card::before{
+    content:''; position:absolute; inset:0; opacity:0; pointer-events:none; border-radius:inherit; z-index:1;
+    background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%), rgba(20,49,92,0.12), transparent 70%);
+    transition:opacity 0.35s ease;
+  }
+  .proj-card:hover::before{ opacity:1; }
+  .proj-card > *{ position:relative; z-index:2; }
+
+  /* ---------- motion: hero radar chart draw-in ---------- */
+  .radar-card svg .plot-fill{ opacity:0; transition:opacity 0.6s ease; }
+  .radar-card svg .plot-dot{
+    opacity:0; transform:scale(0); transform-origin:center; transform-box:fill-box;
+    transition:opacity 0.3s ease, transform 0.3s ease;
+  }
+  .radar-card.drawn svg .plot-fill{ opacity:0.55; }
+  .radar-card.drawn svg .plot-dot{ opacity:1; transform:scale(1); }
+
   @media (max-width: 900px){
     .navlinks{ display:none; }
     .hamburger{ display:flex; }
@@ -410,6 +450,7 @@
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
+      <span class="nav-indicator" id="navIndicator"></span>
     </div>
     <div class="nav-right">
       <a class="nav-cta" href="#contact">Get in touch</a>
@@ -798,17 +839,126 @@
 </footer>
 
 <script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animateCount(el, duration){
+    const raw = el.textContent.trim();
+    const match = raw.match(/^([\d.]+)(.*)$/);
+    if(!match) return;
+    const target = parseFloat(match[1]);
+    const suffix = match[2] || '';
+    const decimals = (match[1].split('.')[1] || '').length;
+    if(prefersReducedMotion){ el.textContent = raw; return; }
+    const dur = duration || 1200;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      el.textContent = (decimals ? val.toFixed(decimals) : Math.round(val)) + suffix;
+      if(p < 1) requestAnimationFrame(tick);
+      else el.textContent = raw;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function stagger(elements, base){
+    elements.forEach((el, i)=> el.style.transitionDelay = (i * base) + 'ms');
+  }
+
+  // cascading delays: same-row project cards, stat boxes, timeline items, skill chips per category
+  document.querySelectorAll('.proj-card').forEach((card, i)=>{
+    card.style.transitionDelay = ((i % 2) * 110) + 'ms';
+  });
+  stagger(document.querySelectorAll('.stat-grid .stat-box'), 90);
+  stagger(document.querySelectorAll('.timeline .tl-item'), 120);
+  document.querySelectorAll('.skill-list').forEach(list=> stagger(list.querySelectorAll('span'), 28));
+
+  // hero radar chart: prep the plot line to draw itself in once the splash lifts
+  const radarCard = document.querySelector('.radar-card');
+  const plotLine = radarCard ? radarCard.querySelector('.plot-line') : null;
+  if(plotLine){
+    const len = plotLine.getTotalLength();
+    plotLine.style.strokeDasharray = len;
+    plotLine.style.strokeDashoffset = prefersReducedMotion ? 0 : len;
+    if(!prefersReducedMotion){
+      plotLine.style.transition = 'stroke-dashoffset 1.3s cubic-bezier(.4,0,.2,1)';
+    }
+  }
+
   window.addEventListener('load', ()=>{
     window.scrollTo(0, 0);
     setTimeout(()=>{
       document.getElementById('splash').classList.add('hide');
+      if(plotLine) plotLine.style.strokeDashoffset = '0';
+      setTimeout(()=>{
+        if(radarCard){
+          radarCard.classList.add('drawn');
+          radarCard.querySelectorAll('.radar-legend .n').forEach(n=> animateCount(n, 900));
+        }
+      }, prefersReducedMotion ? 0 : 650);
     }, 4000);
   });
 
   const obs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        if(e.target.classList.contains('stat-grid')){
+          e.target.querySelectorAll('.num').forEach(n=> animateCount(n, 1100));
+        }
+        obs.unobserve(e.target);
+      }
+    });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el=> obs.observe(el));
+
+  // project card cursor spotlight + subtle tilt
+  if(!prefersReducedMotion && window.matchMedia('(hover:hover)').matches){
+    document.querySelectorAll('.proj-card').forEach(card=>{
+      card.addEventListener('mousemove', (e)=>{
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const maxTilt = 5;
+        card.style.setProperty('--rx', ((0.5 - py) * maxTilt * 2).toFixed(2) + 'deg');
+        card.style.setProperty('--ry', ((px - 0.5) * maxTilt * 2).toFixed(2) + 'deg');
+        card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+      });
+      card.addEventListener('mouseleave', ()=>{
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
+  // active-section indicator sliding under the nav links
+  const navIndicator = document.getElementById('navIndicator');
+  const navLinks = Array.from(document.querySelectorAll('.navlinks a'));
+  let currentActiveLink = null;
+  function moveIndicatorTo(link){
+    if(!link || !navIndicator) return;
+    currentActiveLink = link;
+    const linkRect = link.getBoundingClientRect();
+    const parentRect = link.parentElement.getBoundingClientRect();
+    navIndicator.style.left = (linkRect.left - parentRect.left) + 'px';
+    navIndicator.style.width = linkRect.width + 'px';
+    navIndicator.classList.add('on');
+  }
+  const sectionObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const link = navLinks.find(a=> a.getAttribute('href') === '#' + e.target.id);
+        if(link) moveIndicatorTo(link);
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  ['about','experience','projects','skills'].forEach(id=>{
+    const sec = document.getElementById(id);
+    if(sec) sectionObs.observe(sec);
+  });
+  window.addEventListener('resize', ()=>{ if(currentActiveLink) moveIndicatorTo(currentActiveLink); });
 
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const mobileMenu = document.getElementById('mobileMenu');
